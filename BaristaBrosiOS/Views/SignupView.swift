@@ -12,6 +12,8 @@ import CoreData
 
 struct SignupView: View {
     
+    @State var firstName: String = ""
+    @State var lastName: String = ""
     @State var email: String = ""
     @State var password: String = ""
     @State var confirmPassword: String = ""
@@ -19,6 +21,14 @@ struct SignupView: View {
     var body: some View {
         
         VStack {
+            TextField("First", text: $firstName)
+                .padding()
+                .background(lightGreyColor)
+                .cornerRadius(5.0)
+            TextField("Last", text: $lastName)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
             TextField("Email", text: $email)
                 .padding()
                 .background(lightGreyColor)
