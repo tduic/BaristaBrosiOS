@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import CoreData
 
 class BaristaBrosiOSUITests: XCTestCase {
 
