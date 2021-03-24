@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import CoreData
 @testable import BaristaBrosiOS
 
 class BaristaBrosiOSTests: XCTestCase {
