@@ -12,14 +12,14 @@ let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255
 
 struct ContentView: View {
     
-    @State var username: String = ""
+    @State var email: String = ""
     @State var password: String = ""
     
     var body: some View {
         
         VStack {
             WelcomeText()
-            TextField("Username", text: $username)
+            TextField("Email", text: $email)
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
@@ -27,8 +27,12 @@ struct ContentView: View {
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
-            Button(action: {print("Button pressed")}) {
+            Button(action: {print("login button pressed")}) {
                 LoginButtonContent()
+            }
+            Text("or")
+            Button(action: {print("signup button pressed")}) {
+                SignupButtonContent()
             }
         }
         .padding()
@@ -53,7 +57,19 @@ struct WelcomeText: View {
 
 struct LoginButtonContent: View {
     var body: some View {
-        Text("LOGIN")
+        Text("Login")
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding()
+            .frame(width: 220, height: 60)
+            .background(Color.green)
+            .cornerRadius(15.0)
+    }
+}
+
+struct SignupButtonContent: View {
+    var body: some View {
+        Text("Sign Up")
             .font(.headline)
             .foregroundColor(.white)
             .padding()
