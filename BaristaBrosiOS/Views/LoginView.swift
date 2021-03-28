@@ -1,25 +1,21 @@
 //
-//  ContentView.swift
+//  LoginView.swift
 //  BaristaBrosiOS
 //
-//  Created by Tyler Duic on 3/22/21.
+//  Created by Tyler Duic on 3/24/21.
 //
 
 import SwiftUI
-import CoreData
 
-let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
-
-struct ContentView: View {
+struct LoginView: View {
     
-    @State var username: String = ""
+    @State var email: String = ""
     @State var password: String = ""
     
     var body: some View {
         
         VStack {
-            WelcomeText()
-            TextField("Username", text: $username)
+            TextField("Email", text: $email)
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
@@ -27,33 +23,24 @@ struct ContentView: View {
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
-            Button(action: {print("Button pressed")}) {
+            Button(action: {print("login button pressed")}) {
                 LoginButtonContent()
             }
+            Text("Don't have an account?")
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-    }
-}
-
-struct WelcomeText: View {
-    var body: some View {
-        Text("Welcome to Barista Bros")
-            .font(.title)
-            .fontWeight(.bold)
-            .multilineTextAlignment(.center)
-            .padding()
+        LoginView()
     }
 }
 
 struct LoginButtonContent: View {
     var body: some View {
-        Text("LOGIN")
+        Text("Login")
             .font(.headline)
             .foregroundColor(.white)
             .padding()

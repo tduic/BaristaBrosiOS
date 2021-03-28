@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E7E6C33260BC4010067C094 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E6C32260BC4010067C094 /* SignupView.swift */; };
+		6E7E6C3B260BE35B0067C094 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E6C3A260BE35B0067C094 /* LoginView.swift */; };
 		6EACC71E2609771F009D2067 /* BaristaBrosiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EACC71D2609771F009D2067 /* BaristaBrosiOSApp.swift */; };
 		6EACC7202609771F009D2067 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EACC71F2609771F009D2067 /* ContentView.swift */; };
 		6EACC72226097726009D2067 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EACC72126097726009D2067 /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E7E6C32260BC4010067C094 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		6E7E6C3A260BE35B0067C094 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6EACC71A2609771F009D2067 /* BaristaBrosiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaristaBrosiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EACC71D2609771F009D2067 /* BaristaBrosiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaristaBrosiOSApp.swift; sourceTree = "<group>"; };
 		6EACC71F2609771F009D2067 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,6 +78,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E7E6C3F260BE40A0067C094 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6EACC71F2609771F009D2067 /* ContentView.swift */,
+				6E7E6C3A260BE35B0067C094 /* LoginView.swift */,
+				6E7E6C32260BC4010067C094 /* SignupView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		6EACC7112609771F009D2067 = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				6EACC71D2609771F009D2067 /* BaristaBrosiOSApp.swift */,
-				6EACC71F2609771F009D2067 /* ContentView.swift */,
+				6E7E6C3F260BE40A0067C094 /* Views */,
 				6EACC72126097726009D2067 /* Assets.xcassets */,
 				6EACC72626097726009D2067 /* Info.plist */,
 				6EACC72326097726009D2067 /* Preview Content */,
@@ -263,7 +277,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EACC7202609771F009D2067 /* ContentView.swift in Sources */,
+				6E7E6C33260BC4010067C094 /* SignupView.swift in Sources */,
 				6EACC71E2609771F009D2067 /* BaristaBrosiOSApp.swift in Sources */,
+				6E7E6C3B260BE35B0067C094 /* LoginView.swift in Sources */,
 				76288F91260B93BD00E97A87 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
