@@ -14,5 +14,7 @@ struct BaristaBrosiOSApp: App {
         WindowGroup {
             ContentView()
         }
+        
     }
+
 }
