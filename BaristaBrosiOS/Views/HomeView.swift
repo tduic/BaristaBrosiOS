@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @Binding var page: Pages
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack{
+            Text("Hello, World!")
+            Text("what up")
+            Button(action: {page = Pages.Login}) {
+                LoginButtonContent()
+            }
+        }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(page: .constant(Pages.Home))
     }
 }

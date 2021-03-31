@@ -48,6 +48,12 @@ struct SignupView: View {
     }
 }
 
+struct SignupView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignupView(page: .constant(Pages.Signup))
+    }
+}
+
 struct SignupButtonContent: View {
     var body: some View {
         Text("Sign Up")

@@ -43,11 +43,11 @@ struct LoginView: View {
     }
 }
 
-
-
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        NavigationView {
+            LoginView(page: .constant(Pages.Login)).navigationTitle("Barista Bros")
+        }
     }
 }
 
