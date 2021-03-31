@@ -43,6 +43,7 @@ struct SignupView: View {
                     SignupButtonContent()
                 }
             }
+            .padding()
         }
     }
 }
