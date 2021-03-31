@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @Binding var page: Pages
+    
     @State var email: String = ""
     @State var password: String = ""
     
@@ -23,18 +25,12 @@ struct LoginView: View {
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
-            Button(action: {print("login button pressed")}) {
+            Button(action: {page = Pages.Home}) {
                 LoginButtonContent()
             }
             Text("Don't have an account?")
         }
         .padding(.horizontal)
-    }
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
     }
 }
 

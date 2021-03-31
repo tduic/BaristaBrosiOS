@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-import CoreData
-
-//let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
 
 struct SignupView: View {
+    
+    @Binding var page: Pages
     
     @State var firstName: String = ""
     @State var lastName: String = ""
@@ -19,39 +18,35 @@ struct SignupView: View {
     @State var confirmPassword: String = ""
     
     var body: some View {
-        
         VStack {
-            TextField("First", text: $firstName)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-            TextField("Last", text: $lastName)
+            Text("Sign Up")
+            VStack {
+                TextField("First", text: $firstName)
                     .padding()
                     .background(lightGreyColor)
                     .cornerRadius(5.0)
-            TextField("Email", text: $email)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-            SecureField("Password", text: $password)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-            SecureField("Retype Password", text: $confirmPassword)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-            Button(action: {print("button pressed")}) {
-                SignupButtonContent()
+                TextField("Last", text: $lastName)
+                        .padding()
+                        .background(lightGreyColor)
+                        .cornerRadius(5.0)
+                TextField("Email", text: $email)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                SecureField("Password", text: $password)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                SecureField("Retype Password", text: $confirmPassword)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                Button(action: {page = Pages.Home}) {
+                    SignupButtonContent()
+                }
             }
+            .padding()
         }
-        .padding()
-    }
-}
-
-struct SignupView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignupView()
     }
 }
 
