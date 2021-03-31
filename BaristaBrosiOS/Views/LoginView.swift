@@ -9,7 +9,12 @@ import SwiftUI
 
 struct LoginView: View {
     
+
+    @Binding var page: Pages
+    
+
     @State private var userData: UserProfile.Data = UserProfile.Data()
+
     @State var email: String = ""
     @State var password: String = ""
     
@@ -24,7 +29,7 @@ struct LoginView: View {
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
-            Button(action: {authenticate(email: email, password: password)}) {
+            Button(action: {page = Pages.Home}) {
                 LoginButtonContent()
             }
             Text("Don't have an account?")
