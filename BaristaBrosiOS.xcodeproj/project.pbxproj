@@ -114,8 +114,8 @@
 		6EACC71C2609771F009D2067 /* BaristaBrosiOS */ = {
 			isa = PBXGroup;
 			children = (
-				763878142613E7A100442C8C /* Model */,
 				6EACC71D2609771F009D2067 /* BaristaBrosiOSApp.swift */,
+				763878142613E7A100442C8C /* Model */,
 				6E7E6C3F260BE40A0067C094 /* Views */,
 				6EACC72126097726009D2067 /* Assets.xcassets */,
 				6EACC72626097726009D2067 /* Info.plist */,

@@ -29,8 +29,10 @@ struct ContentView: View {
                     )
                 }
             }
+//        case .Home:
+//            HomeView(page: $page)
         default:
-            HomeView()
+            HomeView(page: $page)
         }
     }
 }

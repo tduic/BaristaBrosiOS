@@ -34,6 +34,14 @@ struct LoginView: View {
     }
 }
 
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            LoginView(page: .constant(Pages.Login)).navigationTitle("Barista Bros")
+        }
+    }
+}
+
 struct LoginButtonContent: View {
     var body: some View {
         Text("Login")
