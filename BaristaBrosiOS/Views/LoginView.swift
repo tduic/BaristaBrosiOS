@@ -9,8 +9,12 @@ import SwiftUI
 
 struct LoginView: View {
     
+
     @Binding var page: Pages
     
+
+    @State private var userData: UserProfile.Data = UserProfile.Data()
+
     @State var email: String = ""
     @State var password: String = ""
     
@@ -31,6 +35,19 @@ struct LoginView: View {
             Text("Don't have an account?")
         }
         .padding(.horizontal)
+    }
+    
+    func authenticate(email: String, password: String) -> Bool {
+        print(userData)
+        return true
+    }
+}
+
+
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
     }
 }
 
