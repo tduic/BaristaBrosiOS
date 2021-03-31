@@ -11,33 +11,31 @@ struct SignupView: View {
     
     @Binding var page: Pages
     
-    @State var firstName: String = ""
-    @State var lastName: String = ""
-    @State var email: String = ""
-    @State var password: String = ""
+    @State private var userData: UserProfile.Data = UserProfile.Data()
     @State var confirmPassword: String = ""
-    
+
     var body: some View {
+        
         VStack {
             Text("Sign Up")
             VStack {
-                TextField("First", text: $firstName)
+                TextField("First", text: $userData.firstName)
                     .padding()
                     .background(lightGreyColor)
                     .cornerRadius(5.0)
-                TextField("Last", text: $lastName)
+                TextField("Last", text: $userData.lastName)
                         .padding()
                         .background(lightGreyColor)
                         .cornerRadius(5.0)
-                TextField("Email", text: $email)
+                TextField("Email", text: $userData.email)
                     .padding()
                     .background(lightGreyColor)
                     .cornerRadius(5.0)
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $userData.password)
                     .padding()
                     .background(lightGreyColor)
                     .cornerRadius(5.0)
-                SecureField("Retype Password", text: $confirmPassword)
+                SecureField("Confirm Password", text: $confirmPassword)
                     .padding()
                     .background(lightGreyColor)
                     .cornerRadius(5.0)
@@ -45,7 +43,6 @@ struct SignupView: View {
                     SignupButtonContent()
                 }
             }
-            .padding()
         }
     }
 }
