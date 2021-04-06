@@ -11,9 +11,6 @@ struct LoginView: View {
     
 
     @Binding var page: Pages
-    
-
-    @State private var userData: UserProfile.Data = UserProfile.Data()
 
     @State var email: String = ""
     @State var password: String = ""
@@ -29,7 +26,7 @@ struct LoginView: View {
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
-            Button(action: {page = Pages.Home}) {
+            Button(action: {page = authenticate(email: email, password: password)}) {
                 LoginButtonContent()
             }
             Text("Don't have an account?")
@@ -37,9 +34,20 @@ struct LoginView: View {
         .padding(.horizontal)
     }
     
-    func authenticate(email: String, password: String) -> Bool {
-        print(userData)
-        return true
+    func authenticate(email: String, password: String) -> Pages {
+        let allUsers = UserProfile.users
+        print(allUsers)
+        for user in allUsers {
+            if user.email == email.lowercased(){
+                print("EMAIL MATCHES")
+                if user.password == password {
+                    print("PASSWORD MATCHES")
+                    return Pages.Home
+                }
+            }
+            
+        }
+        return Pages.Login
     }
 }
 
