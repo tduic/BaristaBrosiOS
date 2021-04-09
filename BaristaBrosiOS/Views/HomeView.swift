@@ -11,14 +11,55 @@ struct HomeView: View {
     
     @Binding var page: Pages
     
+    var drink = Drink.AllDrinks
+    
     var body: some View {
         
-        VStack{
-            Text("Hello, World!")
-            Text("what up")
-            Button(action: {page = Pages.Login}) {
-                LoginButtonContent()
+        VStack {
+            
+            Group {
+                drink[0].image
+                    .resizable()
+                    .frame(width:80, height: 80)
+                Text(drink[0].name)
+                Button(action: {page = Pages.Home}) {
+                    OrderButtonContent()
+                }
+                Spacer()
+                    .frame(height: 25)
+                
+                drink[1].image
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                Text(drink[1].name)
+                Button(action: {page = Pages.Home}) {
+                    OrderButtonContent()
+                }
+                Spacer()
+                    .frame(height: 25)
             }
+            
+            Group {
+                drink[2].image
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                Text(drink[2].name)
+                Button(action: {page = Pages.Home}) {
+                    OrderButtonContent()
+                }
+                Spacer()
+                    .frame(height: 25)
+                
+                drink[7].image
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                Text(drink[7].name)
+                Button(action: {page = Pages.Home}) {
+                    OrderButtonContent()
+                }
+            }
+            
+            
         }
     }
 }
@@ -26,5 +67,17 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(page: .constant(Pages.Home))
+    }
+}
+
+struct OrderButtonContent: View {
+    var body: some View {
+        Text("Order")
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding()
+            .frame(width: 80, height: 30)
+            .background(Color.blue)
+            .cornerRadius(15.0)
     }
 }

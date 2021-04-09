@@ -29,8 +29,11 @@ struct ContentView: View {
                     )
                 }
             }
-//        case .Home:
-//            HomeView(page: $page)
+        case .Home:
+            VStack {
+                HomeView(page: $page)
+            }
+        
         default:
             HomeView(page: $page)
         }
