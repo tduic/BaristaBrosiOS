@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import CoreBluetooth
 
 struct HomeView: View {
     
     @Binding var page: Pages
+    
+    private let ble = BLEConnection()
     
     var body: some View {
         
@@ -20,6 +23,12 @@ struct HomeView: View {
                 LoginButtonContent()
             }
         }
+        .onAppear(perform: connectBLEDevice)
+    }
+    
+    private func connectBLEDevice() {
+        print("connect BLE device")
+        ble.startCentralManager()
     }
 }
 

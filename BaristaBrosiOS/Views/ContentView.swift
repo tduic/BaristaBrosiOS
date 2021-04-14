@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-import CoreData
+import CoreBluetooth
 
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
 
 struct ContentView: View {
     
-    @State private var page = Pages.Login
+    @State private var page = Pages.Home
     
     var body: some View {
         switch page {
@@ -29,8 +29,6 @@ struct ContentView: View {
                     )
                 }
             }
-//        case .Home:
-//            HomeView(page: $page)
         default:
             HomeView(page: $page)
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E3B00AF261D12C700918F9A /* HM10Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B00AE261D12C700918F9A /* HM10Peripheral.swift */; };
 		6E7E6C33260BC4010067C094 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E6C32260BC4010067C094 /* SignupView.swift */; };
 		6E7E6C3B260BE35B0067C094 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E6C3A260BE35B0067C094 /* LoginView.swift */; };
 		6EACC71E2609771F009D2067 /* BaristaBrosiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EACC71D2609771F009D2067 /* BaristaBrosiOSApp.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E3B00AE261D12C700918F9A /* HM10Peripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HM10Peripheral.swift; sourceTree = "<group>"; };
 		6E7E6C32260BC4010067C094 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		6E7E6C3A260BE35B0067C094 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6EACC71A2609771F009D2067 /* BaristaBrosiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaristaBrosiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 			children = (
 				763878152613E7BA00442C8C /* Profile.swift */,
 				763E5E87261BF232001FD60D /* Drink.swift */,
+				6E3B00AE261D12C700918F9A /* HM10Peripheral.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				6EACC7202609771F009D2067 /* ContentView.swift in Sources */,
 				763878162613E7BA00442C8C /* Profile.swift in Sources */,
 				6E7E6C33260BC4010067C094 /* SignupView.swift in Sources */,
+				6E3B00AF261D12C700918F9A /* HM10Peripheral.swift in Sources */,
 				6EACC71E2609771F009D2067 /* BaristaBrosiOSApp.swift in Sources */,
 				6EC6964F26122E9900FF095F /* HomeView.swift in Sources */,
 				763E5E88261BF232001FD60D /* Drink.swift in Sources */,
