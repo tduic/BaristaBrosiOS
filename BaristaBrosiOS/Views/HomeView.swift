@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import CoreBluetooth
 
 struct HomeView: View {
     
     @Binding var page: Pages
     
+    private let ble = BLEConnection()
     var drink = Drink.AllDrinks
     
     var body: some View {
@@ -22,7 +24,7 @@ struct HomeView: View {
                     .resizable()
                     .frame(width:80, height: 80)
                 Text(drink[0].name)
-                Button(action: {page = Pages.Home}) {
+                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "0: vodka tonic".data(using: .utf8) ?? Data())}) {
                     OrderButtonContent()
                 }
                 Spacer()
@@ -32,7 +34,7 @@ struct HomeView: View {
                     .resizable()
                     .frame(width: 80, height: 80)
                 Text(drink[1].name)
-                Button(action: {page = Pages.Home}) {
+                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "1: gin & tonic".data(using: .utf8) ?? Data())}) {
                     OrderButtonContent()
                 }
                 Spacer()
@@ -44,7 +46,7 @@ struct HomeView: View {
                     .resizable()
                     .frame(width: 80, height: 80)
                 Text(drink[2].name)
-                Button(action: {page = Pages.Home}) {
+                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "2: tequila sunrise".data(using: .utf8) ?? Data())}) {
                     OrderButtonContent()
                 }
                 Spacer()
@@ -54,13 +56,19 @@ struct HomeView: View {
                     .resizable()
                     .frame(width: 80, height: 80)
                 Text(drink[7].name)
-                Button(action: {page = Pages.Home}) {
+                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "7: old fashioned".data(using: .utf8) ?? Data())}) {
                     OrderButtonContent()
                 }
             }
             
             
         }
+        .onAppear(perform: connectBLEDevice)
+    }
+    
+    private func connectBLEDevice() {
+        print("connect BLE device")
+        ble.initBLE()
     }
 }
 

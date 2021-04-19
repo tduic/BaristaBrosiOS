@@ -12,10 +12,6 @@ struct SignupView: View {
     @Binding var page: Pages
     
     @State private var userData: UserProfile.Data = UserProfile.Data()
-//    @State var firstName = ""
-//    @State var lastName = ""
-//    @State var email = ""
-//    @State var password = ""
     @State var confirmPassword: String = ""
 
     var body: some View {
@@ -52,7 +48,7 @@ struct SignupView: View {
         
     }
     func signup() -> Pages {
-        let user = UserProfile(firstName: userData.firstName.lowercased(), lastName: userData.lastName.lowercased(), age: 21, password: userData.password, email: userData.email.lowercased())
+        _ = UserProfile(firstName: userData.firstName.lowercased(), lastName: userData.lastName.lowercased(), age: 21, password: userData.password, email: userData.email.lowercased())
         return Pages.Home
     }
 }
