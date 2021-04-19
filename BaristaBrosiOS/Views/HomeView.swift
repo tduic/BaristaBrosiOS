@@ -28,7 +28,7 @@ struct HomeView: View {
     
     private func connectBLEDevice() {
         print("connect BLE device")
-        ble.startCentralManager()
+        ble.initBLE()
     }
 }
 

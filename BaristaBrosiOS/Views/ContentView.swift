@@ -12,7 +12,7 @@ let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255
 
 struct ContentView: View {
     
-    @State private var page = Pages.Home
+    @State private var page = Pages.Login
     
     var body: some View {
         switch page {
