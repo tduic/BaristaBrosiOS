@@ -82,7 +82,7 @@ extension BLEConnection {
             print("ERROR: write failed, characteristic unavailable, uuid = \(uuid.uuidString)")
             return
         }
-        connectedPeripheral?.writeValue(data, for: characteristic, type: .withResponse)
+        connectedPeripheral?.writeValue(data, for: characteristic, type: .withoutResponse)
     }
 
     func getCharacteristic(uuid: CBUUID) -> CBCharacteristic? {
@@ -181,12 +181,12 @@ extension BLEConnection: CBPeripheralDelegate {
         func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
             print("didDiscoverCharacteristics \(error == nil ? "OK" : "error: \(String(describing: error))")")
 
-//            if let charIndicate = service.characteristics?.first(where: { $0.uuid == uuidCharForIndicate }) {
-//                peripheral.setNotifyValue(true, for: charIndicate)
-//            } else {
-//                print("WARN: characteristic for indication not found")
-//                lifecycleState = .connected
-//            }
+            if let charHM10 = service.characteristics?.first(where: { $0.uuid == uuidHM10Char }) {
+                peripheral.setNotifyValue(true, for: charHM10)
+            } else {
+                print("HM10 characteristic not found")
+                lifecycleState = .connected
+            }
         }
 
         func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -220,11 +220,11 @@ extension BLEConnection: CBPeripheralDelegate {
                 return
             }
 
-//            if characteristic.uuid == uuidCharForIndicate {
-//                let info = characteristic.isNotifying ? "Subscribed" : "Not subscribed"
+            if characteristic.uuid == uuidHM10Char {
+                let info = characteristic.isNotifying ? "Subscribed" : "Not subscribed"
 //                labelSubscription.text = info
-//                print(info)
-//            }
+                print(info)
+            }
             lifecycleState = .connected
         }
 }
