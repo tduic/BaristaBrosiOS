@@ -75,7 +75,7 @@ struct OrderView: View {
     func orderDrink(drink: Int, name: String) -> Pages {
         let format = String(format: "%d: %s\n", drink, name)
         ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: format.data(using: .utf8) ?? Data())
-        return Pages.Dispense
+        return Pages.Order
     }
 }
 

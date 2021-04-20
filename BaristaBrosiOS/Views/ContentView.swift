@@ -27,8 +27,8 @@ struct ContentView: View {
                 VStack {
                     Text("Go back dumbass, page not implemented.")
                 }
+                .navigationTitle("You Blew It")
             }
-            .navigationTitle("You Blew It")
         }
     }
 }
