@@ -197,11 +197,6 @@ extension BLEConnection: CBPeripheralDelegate {
 
             let data = characteristic.value ?? Data()
             let stringValue = String(data: data, encoding: .utf8) ?? ""
-//            if characteristic.uuid == uuidCharForRead {
-//                textFieldDataForRead.text = stringValue
-//            } else if characteristic.uuid == uuidCharForIndicate {
-//                textFieldDataForIndicate.text = stringValue
-//            }
             print("didUpdateValue '\(stringValue)'")
         }
 
