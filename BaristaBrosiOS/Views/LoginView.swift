@@ -17,21 +17,30 @@ struct LoginView: View {
     
     var body: some View {
         
-        VStack {
-            TextField("Email", text: $email)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-            SecureField("Password", text: $password)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-            Button(action: {page = authenticate(email: email, password: password)}) {
-                LoginButtonContent()
+        NavigationView {
+            VStack {
+                TextField("Email", text: $email)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                SecureField("Password", text: $password)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                Button(action: {page = authenticate(email: email, password: password)}) {
+                    LoginButtonContent()
+                }
+                Text("Don't have an account?")
+                NavigationLink(
+                    destination: SignupView(page: $page),
+                    label: {
+                        SignupButtonContent()
+                    }
+                )
             }
-            Text("Don't have an account?")
+            .navigationTitle("Barista Bros")
+            .padding()
         }
-        .padding(.horizontal)
     }
     
     func authenticate(email: String, password: String) -> Pages {
@@ -53,9 +62,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            LoginView(page: .constant(Pages.Login)).navigationTitle("Barista Bros")
-        }
+        LoginView(page: .constant(Pages.Login))
     }
 }
 

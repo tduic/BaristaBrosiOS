@@ -12,63 +12,25 @@ struct HomeView: View {
     
     @Binding var page: Pages
     
-    private let ble = BLEConnection()
-    var drink = Drink.AllDrinks
-    
     var body: some View {
         
-        VStack {
-            
-            Group {
-                drink[0].image
-                    .resizable()
-                    .frame(width:80, height: 80)
-                Text(drink[0].name)
-                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "0: vodka tonic\n".data(using: .utf8) ?? Data())}) {
-                    OrderButtonContent()
-                }
-                Spacer()
-                    .frame(height: 25)
-                
-                drink[1].image
-                    .resizable()
-                    .frame(width: 80, height: 80)
-                Text(drink[1].name)
-                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "1: gin & tonic\n".data(using: .utf8) ?? Data())}) {
-                    OrderButtonContent()
-                }
-                Spacer()
-                    .frame(height: 25)
+        NavigationView {
+            VStack {
+                NavigationLink(
+                    destination: OrderView(page: $page),
+                    label: {
+                        NewOrderButtonContent()
+                    }
+                )
+                NavigationLink(
+                    destination: OrderView(page: $page),
+                    label: {
+                        CheckLiquidsButtonContent()
+                    }
+                )
             }
-            
-            Group {
-                drink[2].image
-                    .resizable()
-                    .frame(width: 80, height: 80)
-                Text(drink[2].name)
-                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "2: tequila sunrise\n".data(using: .utf8) ?? Data())}) {
-                    OrderButtonContent()
-                }
-                Spacer()
-                    .frame(height: 25)
-                
-                drink[7].image
-                    .resizable()
-                    .frame(width: 80, height: 80)
-                Text(drink[7].name)
-                Button(action: {ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: "7: old fashioned\n".data(using: .utf8) ?? Data())}) {
-                    OrderButtonContent()
-                }
-            }
-            
-            
+            .navigationTitle("Barista Bros")
         }
-        .onAppear(perform: connectBLEDevice)
-    }
-    
-    private func connectBLEDevice() {
-        print("connect BLE device")
-        ble.initBLE()
     }
 }
 
@@ -78,14 +40,26 @@ struct HomeView_Previews: PreviewProvider {
     }
 }
 
-struct OrderButtonContent: View {
+struct NewOrderButtonContent: View {
     var body: some View {
-        Text("Order")
+        Text("New Order")
             .font(.headline)
             .foregroundColor(.white)
             .padding()
-            .frame(width: 80, height: 30)
-            .background(Color.blue)
+            .frame(width: 300, height: 80)
+            .background(Color.green)
+            .cornerRadius(15.0)
+    }
+}
+
+struct CheckLiquidsButtonContent: View {
+    var body: some View {
+        Text("Check Liquids")
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding()
+            .frame(width: 300, height: 80)
+            .background(Color.orange)
             .cornerRadius(15.0)
     }
 }

@@ -16,24 +16,17 @@ struct ContentView: View {
     var body: some View {
         switch page {
         case .Login:
+            LoginView(page: $page)
+                .navigationTitle("Barista Bros")
+        case .Home:
+            HomeView(page: $page)
+        default:
             NavigationView {
                 VStack {
-                    LoginView(page: $page)
-                        .navigationTitle("Barista Bros")
-                    NavigationLink(
-                        destination: SignupView(page: $page),
-                        label: {
-                            SignupButtonContent()
-                        }
-                    )
+                    Text("Go back dumbass, page not implemented.")
                 }
+                .navigationTitle("You Blew It")
             }
-        case .Home:
-            VStack {
-                HomeView(page: $page)
-            }
-        default:
-            HomeView(page: $page)
         }
     }
 }
@@ -48,4 +41,5 @@ enum Pages : Int {
     case Login = 0
     case Signup = 1
     case Home = 2
+    case Order = 3
 }
