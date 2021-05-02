@@ -20,6 +20,8 @@ struct ContentView: View {
                 .navigationTitle("Barista Bros")
         case .Home:
             HomeView(page: $page)
+        case .Order:
+            OrderView(page: $page, readValue: .constant("Dispensed"))
         default:
             NavigationView {
                 VStack {

@@ -16,14 +16,11 @@ struct HomeView: View {
         
         NavigationView {
             VStack {
+                Button(action: {page = Pages.Order}) {
+                    NewOrderButtonContent()
+                }
                 NavigationLink(
-                    destination: OrderView(page: $page),
-                    label: {
-                        NewOrderButtonContent()
-                    }
-                )
-                NavigationLink(
-                    destination: OrderView(page: $page),
+                    destination: OrderView(page: $page, readValue: .constant("")),
                     label: {
                         CheckLiquidsButtonContent()
                     }
