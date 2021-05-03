@@ -44,4 +44,5 @@ enum Pages : Int {
     case Signup = 1
     case Home = 2
     case Order = 3
+    case CheckLiquid = 4
 }

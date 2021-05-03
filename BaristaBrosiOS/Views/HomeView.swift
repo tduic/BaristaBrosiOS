@@ -20,7 +20,7 @@ struct HomeView: View {
                     NewOrderButtonContent()
                 }
                 NavigationLink(
-                    destination: OrderView(page: $page, readValue: .constant("")),
+                    destination: CheckLiquidView(page: $page, readValue: .constant("")),
                     label: {
                         CheckLiquidsButtonContent()
                     }

@@ -19,7 +19,6 @@ struct OrderView: View {
     
     var body: some View {
         
-        
         if (drinkNum != -1) {
             NavigationView{
                 VStack{
