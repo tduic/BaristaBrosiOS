@@ -10,8 +10,8 @@ import SwiftUI
 struct OrderView: View {
     
     @Binding var page: Pages
+    @Binding var readValue: String
     @State var drinkNum = -1
-    @State var status = "unplaced"
     
     private let ble = BLEConnection()
     
@@ -24,56 +24,71 @@ struct OrderView: View {
                 VStack{
                     drink[drinkNum].image
                         .resizable()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 160, height: 160)
                     Text(drink[drinkNum].name)
-                    Text("Dispensing...")
+                        .bold()
+                    Spacer()
+                        .frame(height: 25)
+                    Text(readValue)
+                    if (readValue == "Dispensed") {
+                        Button(action: {page = Pages.Home}) {
+                            ReturnHomeButtonContent()
+                        }
+                    }
                 }
                 .navigationTitle("Order Placed")
             }
         } else {
             NavigationView {
-                HStack {
-                    VStack {
-                        drink[0].image
-                            .resizable()
-                            .frame(width:80, height: 80)
-                        Text(drink[0].name)
-                        Button(action: {page = orderDrink(drink: 0, name: drink[0].name)}) {
-                            OrderButtonContent()
+                VStack {
+                    HStack {
+                        VStack {
+                            drink[0].image
+                                .resizable()
+                                .frame(width:80, height: 80)
+                            Text(drink[0].name)
+                            Button(action: {page = orderDrink(drink: 0, name: drink[0].name)}) {
+                                OrderButtonContent()
+                            }
+                            Spacer()
+                                .frame(height: 25)
+                    
+                            drink[1].image
+                                .resizable()
+                                .frame(width: 80, height: 80)
+                            Text(drink[1].name)
+                            Button(action: {page = orderDrink(drink: 1, name: drink[1].name)}) {
+                                OrderButtonContent()
+                            }
                         }
+                        
                         Spacer()
-                            .frame(height: 25)
-                
-                        drink[1].image
-                            .resizable()
-                            .frame(width: 80, height: 80)
-                        Text(drink[1].name)
-                        Button(action: {page = orderDrink(drink: 1, name: drink[1].name)}) {
-                            OrderButtonContent()
+                            .frame(width: 30)
+                    
+                        VStack {
+                            drink[2].image
+                                .resizable()
+                                .frame(width: 80, height: 80)
+                            Text(drink[2].name)
+                            Button(action: {page = orderDrink(drink: 2, name: drink[2].name)}) {
+                                OrderButtonContent()
+                            }
+                            Spacer()
+                                .frame(height: 25)
+                    
+                            drink[7].image
+                                .resizable()
+                                .frame(width: 80, height: 80)
+                            Text(drink[7].name)
+                            Button(action: {page = orderDrink(drink: 7, name: drink[7].name)}) {
+                                OrderButtonContent()
+                            }
                         }
                     }
-                    
                     Spacer()
-                        .frame(width: 30)
-                
-                    VStack {
-                        drink[2].image
-                            .resizable()
-                            .frame(width: 80, height: 80)
-                        Text(drink[2].name)
-                        Button(action: {page = orderDrink(drink: 2, name: drink[2].name)}) {
-                            OrderButtonContent()
-                        }
-                        Spacer()
-                            .frame(height: 25)
-                
-                        drink[7].image
-                            .resizable()
-                            .frame(width: 80, height: 80)
-                        Text(drink[7].name)
-                        Button(action: {page = orderDrink(drink: 7, name: drink[7].name)}) {
-                            OrderButtonContent()
-                        }
+                        .frame(height: 25)
+                    Button(action: {page = Pages.Home}) {
+                        ReturnHomeButtonContent()
                     }
                 }
                 .navigationTitle("Order a Drink")
@@ -97,7 +112,7 @@ struct OrderView: View {
 
 struct OrderView_Previews: PreviewProvider {
     static var previews: some View {
-        OrderView(page: .constant(Pages.Order))
+        OrderView(page: .constant(Pages.Order), readValue: .constant("Dispensed"))
     }
 }
 
@@ -109,6 +124,18 @@ struct OrderButtonContent: View {
             .padding()
             .frame(width: 80, height: 30)
             .background(Color.blue)
+            .cornerRadius(15.0)
+    }
+}
+
+struct ReturnHomeButtonContent: View {
+    var body: some View {
+        Text("Return Home")
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding()
+            .frame(width: 300, height: 80)
+            .background(Color.green)
             .cornerRadius(15.0)
     }
 }

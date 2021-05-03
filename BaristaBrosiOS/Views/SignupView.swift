@@ -16,38 +16,35 @@ struct SignupView: View {
 
     var body: some View {
         
-        NavigationView {
+        VStack {
             VStack {
-                Text("Sign Up")
-                VStack {
-                    TextField("First", text: $userData.firstName)
+                TextField("First", text: $userData.firstName)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                TextField("Last", text: $userData.lastName)
                         .padding()
                         .background(lightGreyColor)
                         .cornerRadius(5.0)
-                    TextField("Last", text: $userData.lastName)
-                            .padding()
-                            .background(lightGreyColor)
-                            .cornerRadius(5.0)
-                    TextField("Email", text: $userData.email)
-                        .padding()
-                        .background(lightGreyColor)
-                        .cornerRadius(5.0)
-                    SecureField("Password", text: $userData.password)
-                        .padding()
-                        .background(lightGreyColor)
-                        .cornerRadius(5.0)
-                    SecureField("Confirm Password", text: $confirmPassword)
-                        .padding()
-                        .background(lightGreyColor)
-                        .cornerRadius(5.0)
-                    Button(action: {page = signup()}) {
-                        SignupButtonContent()
-                    }
+                TextField("Email", text: $userData.email)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                SecureField("Password", text: $userData.password)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                SecureField("Confirm Password", text: $confirmPassword)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                Button(action: {page = signup()}) {
+                    SignupButtonContent()
                 }
-                .padding()
             }
-            .navigationTitle("Welcome to Barista Bros!")
+            .padding()
         }
+        .navigationTitle("Welcome!")
         
     }
     func signup() -> Pages {

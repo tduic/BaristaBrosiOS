@@ -16,6 +16,8 @@ class BLEConnection: NSObject {
     var bleCentral: CBCentralManager!
     var connectedPeripheral: CBPeripheral?
     
+    var readValue: String = ""
+    
     enum BLELifecycleState: String {
         case bluetoothNotReady
         case disconnected
@@ -198,6 +200,7 @@ extension BLEConnection: CBPeripheralDelegate {
             let data = characteristic.value ?? Data()
             let stringValue = String(data: data, encoding: .utf8) ?? ""
             print("didUpdateValue '\(stringValue)'")
+            readValue = stringValue
         }
 
         func peripheral(_ peripheral: CBPeripheral,

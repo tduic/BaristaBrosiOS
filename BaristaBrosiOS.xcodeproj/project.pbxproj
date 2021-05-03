@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E7670BC263F83A60069D7ED /* CheckLiquidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7670BB263F83A60069D7ED /* CheckLiquidView.swift */; };
 		6E7E6C33260BC4010067C094 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E6C32260BC4010067C094 /* SignupView.swift */; };
 		6E7E6C3B260BE35B0067C094 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E6C3A260BE35B0067C094 /* LoginView.swift */; };
 		6E977621262E78B700AA692E /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E977620262E78B700AA692E /* OrderView.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E7670BB263F83A60069D7ED /* CheckLiquidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckLiquidView.swift; sourceTree = "<group>"; };
 		6E7E6C32260BC4010067C094 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		6E7E6C3A260BE35B0067C094 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6E977620262E78B700AA692E /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		6E7E6C3F260BE40A0067C094 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6E7670BB263F83A60069D7ED /* CheckLiquidView.swift */,
 				76F50931261FA5480020AF5A /* CircleImage.swift */,
 				6EACC71F2609771F009D2067 /* ContentView.swift */,
 				6EC6964E26122E9900FF095F /* HomeView.swift */,
@@ -306,6 +309,7 @@
 				6E7E6C33260BC4010067C094 /* SignupView.swift in Sources */,
 				6EACC71E2609771F009D2067 /* BaristaBrosiOSApp.swift in Sources */,
 				6EC6964F26122E9900FF095F /* HomeView.swift in Sources */,
+				6E7670BC263F83A60069D7ED /* CheckLiquidView.swift in Sources */,
 				6E977621262E78B700AA692E /* OrderView.swift in Sources */,
 				763E5E88261BF232001FD60D /* Drink.swift in Sources */,
 				6E7E6C3B260BE35B0067C094 /* LoginView.swift in Sources */,

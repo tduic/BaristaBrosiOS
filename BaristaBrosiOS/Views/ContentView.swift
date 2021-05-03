@@ -20,6 +20,8 @@ struct ContentView: View {
                 .navigationTitle("Barista Bros")
         case .Home:
             HomeView(page: $page)
+        case .Order:
+            OrderView(page: $page, readValue: .constant("Dispensed"))
         default:
             NavigationView {
                 VStack {
@@ -42,4 +44,5 @@ enum Pages : Int {
     case Signup = 1
     case Home = 2
     case Order = 3
+    case CheckLiquid = 4
 }
