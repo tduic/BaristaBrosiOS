@@ -10,10 +10,13 @@ import SwiftUI
 struct OrderView: View {
     
     @Binding var page: Pages
-    @Binding var readValue: String
     @State var drinkNum = -1
     
     private let ble = BLEConnection()
+    
+    @State var readValue = ""
+    @State var timeRemaining = 2
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var drink = Drink.AllDrinks
     
@@ -29,8 +32,11 @@ struct OrderView: View {
                         .bold()
                     Spacer()
                         .frame(height: 25)
-                    Text(readValue)
-                    if (readValue == "Dispensed") {
+                    Text("\(readValue)")
+                        .onReceive(timer) {
+                            input in readValue = ble.readValue
+                        }
+                    if (ble.readValue == "Dispensed!") {
                         Button(action: {page = Pages.Home}) {
                             ReturnHomeButtonContent()
                         }
@@ -49,7 +55,7 @@ struct OrderView: View {
                             Text(drink[0].name)
                             Button(action: {page = orderDrink(drink: 0, name: drink[0].name)}) {
                                 OrderButtonContent()
-                            }
+                            }.opacity(timeRemaining > 0 ? 0 : 1)
                             Spacer()
                                 .frame(height: 25)
                     
@@ -59,7 +65,7 @@ struct OrderView: View {
                             Text(drink[1].name)
                             Button(action: {page = orderDrink(drink: 1, name: drink[1].name)}) {
                                 OrderButtonContent()
-                            }
+                            }.opacity(timeRemaining > 0 ? 0 : 1)
                         }
                         
                         Spacer()
@@ -72,7 +78,7 @@ struct OrderView: View {
                             Text(drink[2].name)
                             Button(action: {page = orderDrink(drink: 2, name: drink[2].name)}) {
                                 OrderButtonContent()
-                            }
+                            }.opacity(timeRemaining > 0 ? 0 : 1)
                             Spacer()
                                 .frame(height: 25)
                     
@@ -82,7 +88,7 @@ struct OrderView: View {
                             Text(drink[7].name)
                             Button(action: {page = orderDrink(drink: 7, name: drink[7].name)}) {
                                 OrderButtonContent()
-                            }
+                            }.opacity(timeRemaining > 0 ? 0 : 1)
                         }
                     }
                     Spacer()
@@ -94,6 +100,11 @@ struct OrderView: View {
                 .navigationTitle("Order a Drink")
             }
             .onAppear(perform: connectBLEDevice)
+            .onReceive(timer) {
+                _ in if timeRemaining > 0 {
+                    timeRemaining -= 1
+                }
+            }
         }
     }
     
@@ -106,13 +117,14 @@ struct OrderView: View {
         drinkNum = drink
         let format = String(format: "%d: %s\n", drink, name)
         ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: format.data(using: .utf8) ?? Data())
+        print(ble.readValue)
         return Pages.Order
     }
 }
 
 struct OrderView_Previews: PreviewProvider {
     static var previews: some View {
-        OrderView(page: .constant(Pages.Order), readValue: .constant("Dispensed"))
+        OrderView(page: .constant(Pages.Order))
     }
 }
 

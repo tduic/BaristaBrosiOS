@@ -71,14 +71,6 @@ extension BLEConnection {
         lifecycleState = .disconnected
     }
     
-    func bleReadCharacteristic(uuid: CBUUID) {
-        guard let characteristic = getCharacteristic(uuid: uuid) else {
-            print("ERROR: read failed, characteristic unavailable, uuid = \(uuid.uuidString)")
-            return
-        }
-        connectedPeripheral?.readValue(for: characteristic)
-    }
-
     func bleWriteCharacteristic(uuid: CBUUID, data: Data) {
         guard let characteristic = getCharacteristic(uuid: uuid) else {
             print("ERROR: write failed, characteristic unavailable, uuid = \(uuid.uuidString)")
@@ -86,6 +78,14 @@ extension BLEConnection {
         }
         connectedPeripheral?.writeValue(data, for: characteristic, type: .withoutResponse)
     }
+    
+    func bleReadCharacteristic(uuid: CBUUID) {
+            guard let characteristic = getCharacteristic(uuid: uuid) else {
+                print("ERROR: read failed, characteristic unavailable, uuid = \(uuid.uuidString)")
+                return
+            }
+            connectedPeripheral?.readValue(for: characteristic)
+        }
 
     func getCharacteristic(uuid: CBUUID) -> CBCharacteristic? {
         guard let service = connectedPeripheral?.services?.first(where: { $0.uuid == uuidHM10Service }) else {

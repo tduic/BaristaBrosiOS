@@ -10,10 +10,14 @@ import SwiftUI
 struct CheckLiquidView: View {
     
     @Binding var page: Pages
-    @Binding var readValue: String
     @State var liquidNum = "-1"
     
     private let ble = BLEConnection()
+    
+    @State var readValue = ""
+    @State var readValue2 = ""
+    @State var timeRemaining = 2
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var liquid = Liquid.AllLiquids
     
@@ -25,8 +29,16 @@ struct CheckLiquidView: View {
                         liquid[0].image
                             .resizable()
                             .frame(width:80, height: 80)
-                        Text(verbatim: liquid[0].name)
-                        Text(readValue.dropFirst().components(separatedBy: ",")[0])
+                        Text(liquid[0].name)
+                        Text("\(readValue)")
+                            .onReceive(timer) {
+                                input in
+                                readValue = timeRemaining > 0
+                                    ? "Checking values..."
+                                    : ble.readValue == ""
+                                        ? ble.readValue
+                                        : String(Int(ble.readValue[ble.readValue.startIndex].asciiValue!) * 10)
+                            }
                         Button(action: {refillLiquid(liquid: "R", name: "Vodka")}) {
                             RefillButtonContent()
                         }
@@ -37,35 +49,58 @@ struct CheckLiquidView: View {
                             .resizable()
                             .frame(width:80, height: 80)
                         Text(verbatim: liquid[1].name)
-                        Text(readValue.dropLast().components(separatedBy: ",")[1])
+                        Text("\(readValue2)")
+                            .onReceive(timer) {
+                                input in
+                                readValue2 = timeRemaining > 0
+                                    ? "Checking values..."
+                                    : ble.readValue == ""
+                                        ? ble.readValue
+                                        : String(Int(ble.readValue[ble.readValue.index(before: ble.readValue.endIndex)].asciiValue!) * 10)
+                            }
                         Button(action: {refillLiquid(liquid: "r", name: "Red Bull")}) {
                             RefillButtonContent()
                         }
                     }
                 }
+                Spacer()
+                    .frame(height: 25)
+                Button(action: {page = Pages.Home}) {
+                    ReturnHomeButtonContent()
+                }
             }
             .navigationTitle("Liquid Status")
         }
-        .onAppear(perform: checkLiquid)
+        .onAppear(perform: initBLE)
+        .onReceive(timer) {
+            _ in if timeRemaining > 0 {
+                timeRemaining -= 1
+            }
+            if (timeRemaining == 0) {
+                checkLiquid()
+            }
+        }
     }
     
-    private func checkLiquid() {
+    func initBLE() {
         print("connect BLE device")
         ble.initBLE()
+    }
+    
+    func checkLiquid() {
         let check = "C: check liquids"
         ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: check.data(using: .utf8) ?? Data())
     }
     
     func refillLiquid(liquid: String, name: String) {
         liquidNum = liquid
-        let format = String(format: "%s: %s\n", liquidNum, name)
-        ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: format.data(using: .utf8) ?? Data())
+        ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: liquid.data(using: .utf8) ?? Data())
     }
 }
 
 struct CheckLiquidView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckLiquidView(page: .constant(Pages.CheckLiquid), readValue: .constant("{750, 750}"))
+        CheckLiquidView(page: .constant(Pages.CheckLiquid))
     }
 }
 

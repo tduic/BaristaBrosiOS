@@ -19,12 +19,9 @@ struct HomeView: View {
                 Button(action: {page = Pages.Order}) {
                     NewOrderButtonContent()
                 }
-                NavigationLink(
-                    destination: CheckLiquidView(page: $page, readValue: .constant("")),
-                    label: {
-                        CheckLiquidsButtonContent()
-                    }
-                )
+                Button(action: {page = Pages.CheckLiquid}) {
+                    CheckLiquidsButtonContent()
+                }
             }
             .navigationTitle("Barista Bros")
         }
