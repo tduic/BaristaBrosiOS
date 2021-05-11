@@ -13,7 +13,6 @@ struct CheckLiquidView: View {
     
     private let ble = BLEConnection()
     
-//    @State var readValues = ["", "", "", ""]
     @State var readValue = ""
     @State var readValue1 = ""
     @State var readValue2 = ""
@@ -39,7 +38,7 @@ struct CheckLiquidView: View {
                                     ? "Checking values..."
                                     : ble.readValue == ""
                                         ? ble.readValue
-                                        : String(Int(ble.readValue[ble.readValue.startIndex].asciiValue!) * 10)
+                                        : ble.readValue[ble.readValue.startIndex].asciiValue == 87 ? "1750" : String(Int(ble.readValue[ble.readValue.startIndex].asciiValue!) * 20)
                             }
                         Button(action: {refillLiquid(liquid: "V", name: "Vodka")}) {
                             RefillButtonContent()
@@ -59,7 +58,7 @@ struct CheckLiquidView: View {
                                     ? "Checking values..."
                                     : ble.readValue == ""
                                         ? ble.readValue
-                                        : String(Int(ble.readValue[ble.readValue.index(ble.readValue.startIndex, offsetBy: 1)].asciiValue!) * 10)
+                                        : ble.readValue[ble.readValue.index(ble.readValue.startIndex, offsetBy: 1)].asciiValue == 87 ? "1750" : String(Int(ble.readValue[ble.readValue.index(ble.readValue.startIndex, offsetBy: 1)].asciiValue!) * 20)
                             }
                         Button(action: {refillLiquid(liquid: "T", name: "Tequila")}) {
                             RefillButtonContent()
@@ -68,7 +67,7 @@ struct CheckLiquidView: View {
                     
                     Spacer()
                         .frame(width: 30)
-                    
+
                     VStack {
                         liquid[2].image
                             .resizable()
@@ -81,15 +80,15 @@ struct CheckLiquidView: View {
                                     ? "Checking values..."
                                     : ble.readValue == ""
                                         ? "ble.readValue"
-                                        : String(Int(ble.readValue[ble.readValue.index(ble.readValue.startIndex, offsetBy: 2)].asciiValue!) * 10)
+                                        : String(Int(ble.readValue[ble.readValue.index(ble.readValue.startIndex, offsetBy: 2)].asciiValue!) * 20)
                             }
                         Button(action: {refillLiquid(liquid: "C", name: "Coca Cola")}) {
                             RefillButtonContent()
                         }
-                        
+
                         Spacer()
                             .frame(height: 25)
-                
+
                         liquid[3].image
                             .resizable()
                             .frame(width:80, height: 80)
@@ -101,7 +100,7 @@ struct CheckLiquidView: View {
                                     ? "Checking values..."
                                     : ble.readValue == ""
                                         ? ble.readValue
-                                        : String(Int(ble.readValue[ble.readValue.index(before: ble.readValue.endIndex)].asciiValue!) * 10)
+                                        : String(Int(ble.readValue[ble.readValue.index(before: ble.readValue.endIndex)].asciiValue!) * 20)
                             }
                         Button(action: {refillLiquid(liquid: "O", name: "Orange Juice")}) {
                             RefillButtonContent()
@@ -123,6 +122,7 @@ struct CheckLiquidView: View {
             }
             if (timeRemaining == 0) {
                 checkLiquid()
+                timeRemaining -= 1
             }
         }
     }
@@ -133,7 +133,7 @@ struct CheckLiquidView: View {
     }
     
     func checkLiquid() {
-        let check = "L"
+        let check = "L: check liquids"
         ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: check.data(using: .utf8) ?? Data())
     }
     
