@@ -21,7 +21,9 @@ extension Liquid {
     static var AllLiquids: [Liquid] {
         [
             Liquid(name: "Vodka", imageName: "GG"),
-            Liquid(name: "Red Bull", imageName: "RB")
+            Liquid(name: "Tequila", imageName: "JC"),
+            Liquid(name: "Coca Cola", imageName: "CC"),
+            Liquid(name: "Orange Juice", imageName: "OJ")
         ]
     }
 }

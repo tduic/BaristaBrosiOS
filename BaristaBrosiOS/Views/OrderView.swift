@@ -82,11 +82,11 @@ struct OrderView: View {
                             Spacer()
                                 .frame(height: 25)
                     
-                            drink[7].image
+                            drink[3].image
                                 .resizable()
                                 .frame(width: 80, height: 80)
-                            Text(drink[7].name)
-                            Button(action: {page = orderDrink(drink: 7, name: drink[7].name)}) {
+                            Text(drink[3].name)
+                            Button(action: {page = orderDrink(drink: 3, name: drink[3].name)}) {
                                 OrderButtonContent()
                             }.opacity(timeRemaining > 0 ? 0 : 1)
                         }
