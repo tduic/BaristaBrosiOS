@@ -79,7 +79,7 @@ struct CheckLiquidView: View {
                                 readValue2 = timeRemaining > 0
                                     ? "Checking values..."
                                     : ble.readValue == ""
-                                        ? "ble.readValue"
+                                        ? ble.readValue
                                         : String(Int(ble.readValue[ble.readValue.index(ble.readValue.startIndex, offsetBy: 2)].asciiValue!) * 20)
                             }
                         Button(action: {refillLiquid(liquid: "C", name: "Coca Cola")}) {
