@@ -38,7 +38,7 @@ class BaristaBrosiOSTests: XCTestCase {
 
     func testDrinkMenuIsPopulated() {
         let drinks = Drink.AllDrinks
-        XCTAssertEqual(drinks.count, 13)
+        XCTAssertEqual(drinks.count, 12)
         XCTAssertTrue(drinks.contains { $0.name == "Gin & Tonic" })
     }
 
@@ -57,6 +57,12 @@ class BaristaBrosiOSTests: XCTestCase {
         let drinks = Drink.AllDrinks
         let commands = (0..<4).map { OrderView.orderCommand(drink: $0, name: drinks[$0].name) }
         XCTAssertEqual(commands, ["0: Tequila Sunrise\n", "1: Tequila Coke\n", "2: Screwdriver\n", "3: Vodka Coke\n"])
+    }
+
+    func testDrinkNamesAreUnique() {
+        let names = Drink.AllDrinks.map(\.name)
+        let duplicates = Dictionary(grouping: names, by: { $0 }).filter { $1.count > 1 }.keys
+        XCTAssertTrue(duplicates.isEmpty, "duplicate drinks: \(duplicates.sorted())")
     }
 
     func testEveryDrinkHasSanePours() {
