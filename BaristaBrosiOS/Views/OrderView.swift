@@ -113,9 +113,16 @@ struct OrderView: View {
         ble.initBLE()
     }
     
+    /// The line sent to the dispenser over BLE: "<menu index>: <drink name>\n".
+    /// (String(format:) with %s expects a C string, not a Swift String, and
+    /// produced garbage names; interpolation formats it correctly.)
+    static func orderCommand(drink: Int, name: String) -> String {
+        "\(drink): \(name)\n"
+    }
+
     func orderDrink(drink: Int, name: String) -> Pages {
         drinkNum = drink
-        let format = String(format: "%d: %s\n", drink, name)
+        let format = OrderView.orderCommand(drink: drink, name: name)
         ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: format.data(using: .utf8) ?? Data())
         print(ble.readValue)
         return Pages.Order

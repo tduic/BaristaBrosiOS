@@ -42,6 +42,23 @@ class BaristaBrosiOSTests: XCTestCase {
         XCTAssertTrue(drinks.contains { $0.name == "Gin & Tonic" })
     }
 
+    // MARK: - Ordering
+
+    func testOrderCommandFormatsIndexAndName() {
+        XCTAssertEqual(OrderView.orderCommand(drink: 2, name: "Screwdriver"), "2: Screwdriver\n")
+        XCTAssertEqual(OrderView.orderCommand(drink: 1, name: "Gin & Tonic"), "1: Gin & Tonic\n")
+        XCTAssertEqual(Array(OrderView.orderCommand(drink: 0, name: "Tequila Sunrise").utf8),
+                       Array("0: Tequila Sunrise\n".utf8))
+    }
+
+    func testOrderCommandsForTheOrderScreen() {
+        // OrderView offers menu slots 0-3 and sends the slot index as the
+        // dispenser's command code, so these positions must not move.
+        let drinks = Drink.AllDrinks
+        let commands = (0..<4).map { OrderView.orderCommand(drink: $0, name: drinks[$0].name) }
+        XCTAssertEqual(commands, ["0: Tequila Sunrise\n", "1: Tequila Coke\n", "2: Screwdriver\n", "3: Vodka Coke\n"])
+    }
+
     func testEveryDrinkHasSanePours() {
         for drink in Drink.AllDrinks {
             XCTAssertFalse(drink.name.isEmpty)
