@@ -7,6 +7,8 @@
 
 import XCTest
 import CoreData
+import CoreBluetooth
+import SwiftUI
 @testable import BaristaBrosiOS
 
 class BaristaBrosiOSTests: XCTestCase {
@@ -29,6 +31,133 @@ class BaristaBrosiOSTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+
+
+    // MARK: - Drink menu
+
+    func testDrinkMenuIsPopulated() {
+        let drinks = Drink.AllDrinks
+        XCTAssertEqual(drinks.count, 13)
+        XCTAssertTrue(drinks.contains { $0.name == "Gin & Tonic" })
+    }
+
+    func testEveryDrinkHasSanePours() {
+        for drink in Drink.AllDrinks {
+            XCTAssertFalse(drink.name.isEmpty)
+            XCTAssertFalse(drink.alcohols.isEmpty, "\(drink.name) has no alcohol")
+            XCTAssertFalse(drink.mixers.isEmpty, "\(drink.name) has no mixer")
+            XCTAssertTrue(drink.alcohols.values.allSatisfy { $0 > 0 }, "\(drink.name) has a non-positive pour")
+            XCTAssertTrue(drink.mixers.values.allSatisfy { $0 > 0 }, "\(drink.name) has a non-positive pour")
+            XCTAssertGreaterThan(drink.calories, 0)
+            XCTAssertTrue((0...5).contains(drink.rating), "\(drink.name) rating out of range")
+        }
+    }
+
+    func testDrinkCodableRoundTrip() throws {
+        let original = Drink.AllDrinks[0]
+        let data = try JSONEncoder().encode(original)
+        let decoded = try JSONDecoder().decode(Drink.self, from: data)
+        XCTAssertEqual(decoded, original)
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        XCTAssertEqual(json["imageName"] as? String, "TS")
+    }
+
+    // MARK: - Liquids
+
+    func testLiquidsCoverTheDispenserBottles() {
+        let names = Liquid.AllLiquids.map(\.name)
+        XCTAssertEqual(names, ["Vodka", "Tequila", "Coca Cola", "Orange Juice"])
+        XCTAssertEqual(Set(names).count, names.count, "duplicate liquid")
+    }
+
+    func testDispenserLiquidsAppearInTheMenu() {
+        let used = Set(Drink.AllDrinks.flatMap { Array($0.alcohols.keys) + Array($0.mixers.keys) })
+        for liquid in Liquid.AllLiquids {
+            XCTAssertTrue(used.contains(liquid.name), "\(liquid.name) is never poured")
+        }
+    }
+
+    // MARK: - Profiles
+
+    func testProfileDataMirrorsProfile() {
+        let user = UserProfile(firstName: "a", lastName: "b", age: 30, password: "pw", email: "a@b.c")
+        let data = user.data
+        XCTAssertEqual(data.firstName, "a")
+        XCTAssertEqual(data.lastName, "b")
+        XCTAssertEqual(data.age, 30)
+        XCTAssertEqual(data.password, "pw")
+        XCTAssertEqual(data.email, "a@b.c")
+    }
+
+    func testProfileDataDefaults() {
+        let blank = UserProfile.Data()
+        XCTAssertEqual(blank.age, 21)
+        XCTAssertTrue(blank.email.isEmpty && blank.password.isEmpty)
+    }
+
+    func testProfileCodableRoundTrip() throws {
+        let user = UserProfile.users[0]
+        let decoded = try JSONDecoder().decode(UserProfile.self, from: JSONEncoder().encode(user))
+        XCTAssertEqual(decoded.email, user.email)
+        XCTAssertEqual(decoded.age, user.age)
+    }
+
+    // MARK: - Navigation logic
+
+    func testLoginWithKnownUserGoesHome() {
+        let view = LoginView(page: .constant(.Login))
+        XCTAssertEqual(view.authenticate(email: "aryanchordia@gmail.com", password: "123"), .Home)
+    }
+
+    func testLoginEmailIsCaseInsensitive() {
+        let view = LoginView(page: .constant(.Login))
+        XCTAssertEqual(view.authenticate(email: "AryanChordia@Gmail.com", password: "123"), .Home)
+    }
+
+    func testLoginRejectsBadCredentials() {
+        let view = LoginView(page: .constant(.Login))
+        XCTAssertEqual(view.authenticate(email: "aryanchordia@gmail.com", password: "wrong"), .Login)
+        XCTAssertEqual(view.authenticate(email: "nobody@example.com", password: "123"), .Login)
+        XCTAssertEqual(view.authenticate(email: "", password: ""), .Login)
+    }
+
+    func testSignupGoesHome() {
+        XCTAssertEqual(SignupView(page: .constant(.Signup)).signup(), .Home)
+    }
+
+    func testPageRawValues() {
+        XCTAssertEqual(Pages(rawValue: 0), .Login)
+        XCTAssertEqual(Pages(rawValue: 4), .CheckLiquid)
+        XCTAssertNil(Pages(rawValue: 5))
+    }
+
+    // MARK: - Bluetooth helpers (no radio access)
+
+    func testBLEConnectionStartsIdle() {
+        let ble = BLEConnection()
+        XCTAssertEqual(ble.lifecycleState, .bluetoothNotReady)
+        XCTAssertNil(ble.connectedPeripheral)
+        XCTAssertEqual(ble.readValue, "")
+        XCTAssertEqual(ble.uuidHM10Service.uuidString, "FFE0")
+        XCTAssertEqual(ble.uuidHM10Char.uuidString, "FFE1")
+    }
+
+    func testCharacteristicLookupWithoutPeripheralIsNil() {
+        let ble = BLEConnection()
+        XCTAssertNil(ble.getCharacteristic(uuid: ble.uuidHM10Char))
+        // Writing with nothing connected must be a no-op, not a crash.
+        ble.bleWriteCharacteristic(uuid: ble.uuidHM10Char, data: Data("L: check liquids".utf8))
+        ble.bleReadCharacteristic(uuid: ble.uuidHM10Char)
+    }
+
+    func testManagerStateStrings() {
+        XCTAssertEqual(CBManagerState.poweredOn.stringValue, "poweredOn")
+        XCTAssertEqual(CBManagerState.poweredOff.stringValue, "poweredOff")
+        XCTAssertEqual(CBManagerState.unauthorized.stringValue, "unauthorized")
+        XCTAssertEqual(CBManagerState.unsupported.stringValue, "unsupported")
+        XCTAssertEqual(CBManagerState.resetting.stringValue, "resetting")
+        XCTAssertEqual(CBManagerState.unknown.stringValue, "unknown")
     }
 
 }
