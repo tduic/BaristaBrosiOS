@@ -139,8 +139,8 @@ class BaristaBrosiOSTests: XCTestCase {
         XCTAssertEqual(ble.lifecycleState, .bluetoothNotReady)
         XCTAssertNil(ble.connectedPeripheral)
         XCTAssertEqual(ble.readValue, "")
-        XCTAssertEqual(ble.uuidHM10Service.uuidString, "FFE0")
-        XCTAssertEqual(ble.uuidHM10Char.uuidString, "FFE1")
+        XCTAssertEqual(ble.uuidHM10Service.uuidString, "0000FFE0-0000-1000-8000-00805F9B34FB")
+        XCTAssertEqual(ble.uuidHM10Char.uuidString, "0000FFE1-0000-1000-8000-00805F9B34FB")
     }
 
     func testCharacteristicLookupWithoutPeripheralIsNil() {
